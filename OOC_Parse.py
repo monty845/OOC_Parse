@@ -1,6 +1,28 @@
 # -*- coding: utf-8 -*-
 """
 @author: Monty
+Created for Casuality of Kurinnaxx
+
+Log Parser - Allows parsing combat log to catch OOC Activity that WCL Misses
+Currently Checks:
+    Greater Nature Protection Potions
+    Nature Protection Potions
+    Greater Arcane Protection Potions
+    Brilliant Wizzard and Mana Oil usage
+    Sapper Usage
+    Dynamite Usage
+    Resurrections
+    Major Mana Potions
+    Superior Mana Potions
+    Greater Mana Potions
+    Dark/Demonic Runes (combined)
+    Greater Nature Protection Potions from the end of Sartura to End of Viscidus
+    Sappers/Dynamite use during Viscidus
+    
+Limitations:
+    Assumes Viscidus right after Sartura for pre-fight GNPP Tracking
+    Assumes C'Thun is last boss, and stops parsing
+    No more than 96 players in combat log
 """
 import sys
 
@@ -8,7 +30,7 @@ import sys
 f = open('G:\Blizzard\World of Warcraft\_classic_\Logs\WoWCombatLog.txt')
 #f = open('G:\Log.txt')
 #Location for output
-outf = open('G:\Blizzard\World of Warcraft\_classic_\Logs\Potion.csv', "w")
+outf = open('G:\Blizzard\World of Warcraft\_classic_\Logs\Parse.csv', "w")
 #outf = open('G:\Potion.txt', "w")
 
 #spells to look for
