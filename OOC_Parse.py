@@ -26,10 +26,10 @@ Limitations:
 import sys
 
 #Combat Log location
-f = open('C:\\Users\\Tyler\\Desktop\\logs\\WoWCombatLog-split-2020-09-17T00-37-57.618Z-split-2020-09-17T00-37-57.618Z.txt')
+f = open('G:\Blizzard\World of Warcraft\_classic_\Logs\WoWCombatLog.txt')
 #f = open('G:\Log.txt')
 #Location for output
-outf = open('C:\\Users\\Tyler\\Desktop\\logs\Aq_consumes_out.txt', "w")
+outf = open(G:\Blizzard\World of Warcraft\_classic_\Logs\Parse.csv, "w")
 #outf = open('G:\Potion.txt', "w")
 
 #spells to look for
