@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-
 @author: Monty
 Created for Casuality of Kurinnaxx
-
 Log Parser - Allows parsing combat log to catch OOC Activity that WCL Misses
 Currently Checks:
     Greater Nature Protection Potions
@@ -28,15 +26,15 @@ Limitations:
 import sys
 
 #Combat Log location
-f = open('G:\Blizzard\World of Warcraft\_classic_\Logs\WoWCombatLog.txt')
+f = open('C:\\Users\\Tyler\\Desktop\\logs\\WoWCombatLog-split-2020-09-17T00-37-57.618Z-split-2020-09-17T00-37-57.618Z.txt')
 #f = open('G:\Log.txt')
 #Location for output
-outf = open('G:\Blizzard\World of Warcraft\_classic_\Logs\Parse.csv', "w")
+outf = open('C:\\Users\\Tyler\\Desktop\\logs\Aq_consumes_out.txt', "w")
 #outf = open('G:\Potion.txt', "w")
 
 #spells to look for
-spellIdList = ["7254", "17546", "17549", "25122", "25123", "13241", "23063", "2893", "4987", "21954", "7932", "23786", "20594", "26677", "20770", "20773", "20748", "17531", "17530", "11903", "27869", "16666"]
-
+spellIdList = ["7254", "17546", "17549", "25122", "25123", "13241", "23063", "2893", "4987", "21954", "7932", "23786", "20594", "26677", "20770", "20773", "20748", "17531", "17530", "11903", "27869", "16666", "3169", "17534"]
+#lip , 17546
 #What type of combat log actions to look for
 activityList = ["SPELL_CAST_SUCCESS"]
 
@@ -63,6 +61,8 @@ MMana = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 SMana = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 GMana = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 Rune = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+LIP = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+MHealth = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
 #Track whether we are in the Viscidus encounter
 Visc = 0
@@ -165,6 +165,12 @@ for line in f:
             if entryList[9] in ["27869", "16666"]:
                 spell = "Dark/Demonic Rune"
                 Rune[index] = Rune[index] + 1
+            if entryList[9] in ["3169"]:
+                spell = "LIP"
+                LIP[index] = LIP[index] + 1
+            if entryList[9] in ["17534"]:
+                spell = "Mhealth"
+                MHealth[index] = MHealth[index] + 1
             
             #Log events in order
             #outf.write(split[1] + " " + name.ljust(14) + " " + spell + "\n")
@@ -188,7 +194,9 @@ output = output + "Ress    " + delimiter
 output = output + "Maj Mana" + delimiter
 output = output + "Sup Mana" + delimiter
 output = output + "Gre Mana" + delimiter
-output = output + "D/D Rune" + "\n"
+output = output + "D/D Rune" + delimiter
+output = output + "LIP     " + delimiter
+output = output + "MHealth " + "\n"
 outf.write(output)
 
 #Loop through player list for cas counts, and output to log
@@ -209,7 +217,9 @@ for name in playerNameList:
     output = output + str(MMana[index]).ljust(width) + delimiter
     output = output + str(SMana[index]).ljust(width) + delimiter
     output = output + str(GMana[index]).ljust(width) + delimiter
-    output = output + str(Rune[index]).ljust(width) + "\n"
+    output = output + str(Rune[index]).ljust(width) + delimiter
+    output = output + str(LIP[index]).ljust(width) + delimiter
+    output = output + str(MHealth[index]).ljust(width) + "\n"
     outf.write(output)
 
 outf.close()
